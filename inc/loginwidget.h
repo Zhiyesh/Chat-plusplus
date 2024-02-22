@@ -4,13 +4,9 @@
 #include <QWidget>
 #include "inc/mainwindow.h"
 
-
 namespace Ui {
 class LoginWidget;
 }
-
-
-class LoginWidget;
 
 class MainWThread : public QThread
 {
@@ -34,12 +30,20 @@ signals:
 
 private slots:
     void toLogin(bool flag);
+    void readSettings();
+    void updateSettings();
+    void getValueFromObj(QJsonObject obj);
 
 private:
     Ui::LoginWidget *ui;
     string *id;
     int *pre_size;
     QTcpSocket *socket;
+    QFile *settings;
+
+    //json option
+    bool auto_login;
+    bool remember_password;
 };
 
 #endif // LOGINWIDGET_H

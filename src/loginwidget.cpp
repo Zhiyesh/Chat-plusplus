@@ -17,9 +17,13 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui(new Ui::LoginWidget),
     id(new string()),
     pre_size(new int(0)),
-    socket(new QTcpSocket())
+    socket(new QTcpSocket()),
+    auto_login(false),
+    remember_password(false),
+    settings(new QFile(JSON_PATH))
 {
     ui->setupUi(this);
+    setFixedSize(776, 626);
 
     //widget init
     ui->Account->setEditable(true);
@@ -35,6 +39,14 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     ui->FormatError->hide();
     ui->PasswordError->hide();
+    ui->NetworkDisconnect->hide();
+
+    //Settings init
+    readSettings();
+
+    //Set CheckBox initial value
+    ui->AutoLogin->setCheckState(auto_login ? Qt::Checked : Qt::Unchecked);
+    ui->RememberPassword->setCheckState(remember_password ? Qt::Checked : Qt::Unchecked);
 
     //号码输入
     connect(ui->Account->lineEdit(), &QLineEdit::textEdited, [&](){
@@ -58,7 +70,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
         *pre_size = ui->Account->lineEdit()->text().size();
     });
 
-    //回车跳转密码输入
+    //回车跳转密码框
     connect(ui->Account->lineEdit(), &QLineEdit::returnPressed, [&](){
         if (ui->Account->lineEdit()->text() != "")
         {
@@ -71,9 +83,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
     });
 
     //密码输入
-    connect(ui->Password, &QLineEdit::textEdited, [&](){
-
-    });
 
     //回车登录
     connect(ui->Password, &QLineEdit::returnPressed, [&](){
@@ -84,9 +93,10 @@ LoginWidget::LoginWidget(QWidget *parent) :
     connect(ui->ToLogin, &QPushButton::clicked, [&](){
         ui->FormatError->hide();
         ui->PasswordError->hide();
+        ui->NetworkDisconnect->hide();
         ui->ToLogin->setText("登录中...");
         ui->Account->lineEdit()->setPlaceholderText("号码");
-        mySleep(100);
+        Zy::mSleep(100);
         if (ui->Account->currentText().size() >= 10 && ui->Password->text().size() >= 8)
         {
             emit logining();
@@ -101,6 +111,11 @@ LoginWidget::LoginWidget(QWidget *parent) :
     //登录操作
     connect(this, &LoginWidget::logining, [&](){
         socket->connectToHost(ADDRESS, PORT);
+        if (!socket->waitForConnected(5000))
+        {
+            ui->ToLogin->setText("登录");
+            ui->NetworkDisconnect->show();
+        }
     });
 
     //校验
@@ -118,10 +133,36 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     //检查
     connect(socket, &QTcpSocket::readyRead, [&](){
-        mySleep(500);
+        Zy::mSleep(500);
         QString ret = socket->readAll();
         bool flag = ret == "yes" ? true : false;
         toLogin(flag);
+    });
+
+    //自动登录开启
+    connect(ui->AutoLogin, &QCheckBox::clicked, [&](){
+        if (ui->AutoLogin->checkState() == Qt::Checked)
+        {
+            auto_login = true;
+        }
+        else auto_login = false;
+        updateSettings();
+    });
+
+    //自动登录实现
+    if (auto_login && (ui->Account->lineEdit()->text() != "") && (ui->Password->text() != ""))
+    {
+        emit ui->ToLogin->clicked();
+    }
+
+    //记住密码开启
+    connect(ui->RememberPassword, &QCheckBox::clicked, [&](){
+        if (ui->RememberPassword->checkState() == Qt::Checked)
+        {
+            remember_password = true;
+        }
+        else remember_password = false;
+        updateSettings();
     });
 }
 
@@ -148,10 +189,76 @@ void LoginWidget::toLogin(bool flag)
     }
 }
 
+void LoginWidget::readSettings()
+{
+    QByteArray jsondata;
+    if (settings->open(QIODevice::ReadOnly))
+    {
+        jsondata = settings->readAll();
+        settings->close();
+    }
+    else
+    {
+        updateSettings();
+        return;
+    }
+
+    QJsonDocument jsondoc = QJsonDocument::fromJson(jsondata);
+
+    if (jsondoc.isObject())
+    {
+        QJsonObject root = jsondoc.object();
+        getValueFromObj(root);
+    }
+}
+
+void LoginWidget::updateSettings()
+{
+    //create json
+    QJsonObject root;
+
+    QJsonObject login_settings;
+    login_settings.insert("auto_login", auto_login);
+    login_settings.insert("remember_password", remember_password);
+
+    root.insert("login_settings", login_settings);
+
+    QJsonDocument jsondoc(root);
+    QByteArray jsondata = jsondoc.toJson();
+
+    if (settings->open(QIODevice::WriteOnly))
+    {
+        //覆盖写
+        settings->write(jsondata);
+        settings->close();
+    }
+}
+
+void LoginWidget::getValueFromObj(QJsonObject obj)
+{
+    QStringList keys = obj.keys();
+    for (QString key : keys)
+    {
+        QJsonValue value = obj.value(key);
+        if (value.isBool())
+        {
+            if (key == "auto_login")
+                auto_login = value.toBool();
+            else if (key == "remember_password")
+                remember_password = value.toBool();
+        }
+        else if (value.isObject())
+        {
+            getValueFromObj(value.toObject());
+        }
+    }
+}
+
 LoginWidget::~LoginWidget()
 {
     if (ui != NULL) delete ui; ui = NULL;
     if (id != NULL) delete id; id = NULL;
     if (pre_size != NULL) delete pre_size; pre_size = NULL;
     delete socket;
+    delete settings;
 }

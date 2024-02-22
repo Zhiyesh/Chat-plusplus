@@ -9,10 +9,13 @@
 #include <QThread>
 #include <QTcpSocket>
 #include <QTime>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QFile>
+
+#define JSON_PATH "./settings.json"
 
 using std::string;
-using std::fstream;
-using std::ios_base;
 
 namespace Ui {
 class MainWindow;
