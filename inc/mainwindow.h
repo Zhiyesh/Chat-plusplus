@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "inc/addfrienddialog.h"
-#include "inc/hostip.h"
+#include "inc/hostsocket.h"
 #include "inc/sleep.h"
 #include <QString>
 #include <QThread>
