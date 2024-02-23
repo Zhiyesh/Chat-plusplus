@@ -115,6 +115,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
         {
             ui->ToLogin->setText("登录");
             ui->NetworkDisconnect->show();
+            Zy::mSleep(4000);
+            ui->NetworkDisconnect->hide();
         }
     });
 
@@ -166,7 +168,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     });
 }
 
-void LoginWidget::toLogin(bool flag)
+void LoginWidget::toLogin(const bool &flag)
 {
     //登录成功
     if (flag)
@@ -186,6 +188,8 @@ void LoginWidget::toLogin(bool flag)
     {
         ui->ToLogin->setText("登录");
         ui->PasswordError->show();
+        Zy::mSleep(4000);
+        ui->PasswordError->hide();
     }
 }
 
@@ -234,7 +238,7 @@ void LoginWidget::updateSettings()
     }
 }
 
-void LoginWidget::getValueFromObj(QJsonObject obj)
+void LoginWidget::getValueFromObj(const QJsonObject &obj)
 {
     QStringList keys = obj.keys();
     for (QString key : keys)

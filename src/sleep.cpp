@@ -1,6 +1,6 @@
 #include "inc/sleep.h"
 
-void mySleep(unsigned long ms)
+void Zy::mSleep(unsigned long ms)
 {
     QTime _timer = QTime::currentTime().addMSecs(ms);
     while (QTime::currentTime() < _timer)

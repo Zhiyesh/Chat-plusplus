@@ -35,7 +35,7 @@ HEADERS  += inc/loginwidget.h \
     inc/mainwindow.h \
     inc/sleep.h \
     inc/addfrienddialog.h \
-    inc/hostip.h
+    inc/hostsocket.h
 
 FORMS    += ui/loginwidget.ui \
     ui/mainwindow.ui \

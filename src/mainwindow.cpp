@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //发送消息
     connect(ui->SendMessage, &QPushButton::clicked, [&](){
-        mySleep(100);
+        Zy::mSleep(100);
         QString content = ui->InputBox->toPlainText();
         if (content != "")
         {

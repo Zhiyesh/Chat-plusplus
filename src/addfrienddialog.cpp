@@ -23,7 +23,6 @@ AddFriendDialog::AddFriendDialog(QWidget *parent) :
         ui->SearchResult->setStyleSheet("font: 11pt \"微软雅黑\";");
         ui->SearchResult->show();
         ui->AddFromResult->hide();
-        mySleep(500);
 
         QString phone = ui->PhoneInput->text();
         QString name = QString();
@@ -59,7 +58,7 @@ AddFriendDialog::~AddFriendDialog()
     delete ui;
 }
 
-bool AddFriendDialog::checkExist(const QString& phone, QString& name)
+bool AddFriendDialog::checkExist(const QString &phone, QString &name)
 {
     if (phone != "")
     {

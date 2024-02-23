@@ -2,7 +2,6 @@
 #define ADDFRIENDDIALOG_H
 
 #include <QWidget>
-#include "inc/sleep.h"
 
 namespace Ui {
 class AddFriendDialog;
@@ -17,7 +16,7 @@ public:
     ~AddFriendDialog();
 
 public slots:
-    bool checkExist(const QString& phone, QString& name);
+    bool checkExist(const QString &phone, QString &name);
 
 private:
     Ui::AddFriendDialog *ui;

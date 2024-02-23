@@ -29,10 +29,10 @@ signals:
     void logining();
 
 private slots:
-    void toLogin(bool flag);
+    void toLogin(const bool &flag);
     void readSettings();
     void updateSettings();
-    void getValueFromObj(QJsonObject obj);
+    void getValueFromObj(const QJsonObject &obj);
 
 private:
     Ui::LoginWidget *ui;

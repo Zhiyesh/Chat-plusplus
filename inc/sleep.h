@@ -1,10 +1,14 @@
-#ifndef MYSLEEP_H
-#define MYSLEEP_H
+#ifndef ZYSLEEP_H
+#define ZYSLEEP_H
 
 #include <QTime>
 #include <QCoreApplication>
 
-void mySleep(unsigned long ms);
+class Zy
+{
+public:
+    static void mSleep(unsigned long ms);
+};
 
 
-#endif // MYSLEEP_H
+#endif // ZYSLEEP_H
