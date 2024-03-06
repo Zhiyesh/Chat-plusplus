@@ -48,6 +48,9 @@ border-radius: 7px;</string>
      <height>61</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
 	font: 12pt;
@@ -72,6 +75,9 @@ QPushButton::hover {
      <height>51</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox {
 	font: 10pt;
@@ -93,6 +99,9 @@ QCheckBox::hover {
      <width>111</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox {
@@ -216,6 +225,9 @@ QComboBox::down-arrow {
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>WhatsThisCursor</cursorShape>
    </property>
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>

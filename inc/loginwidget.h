@@ -33,17 +33,20 @@ private slots:
     void readSettings();
     void updateSettings();
     void getValueFromObj(const QJsonObject &obj);
+    bool updateActFile(QFile *file, const QString &str);
 
 private:
     Ui::LoginWidget *ui;
+    //json option
+    bool auto_login;
+    bool remember_password;
+
     string *id;
     int *pre_size;
     QTcpSocket *socket;
     QFile *settings;
-
-    //json option
-    bool auto_login;
-    bool remember_password;
+    QFile *account;
+    QStringList phones;
 };
 
 #endif // LOGINWIDGET_H
