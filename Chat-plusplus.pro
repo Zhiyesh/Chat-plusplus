@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-QT       += sql network
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,17 +27,20 @@ SOURCES += main.cpp\
         src/loginwidget.cpp \
     src/mainwindow.cpp \
     src/sleep.cpp \
-    src/addfrienddialog.cpp
+    src/addfrienddialog.cpp \
+    src/friendlistwidget.cpp
 
 HEADERS  += inc/loginwidget.h \
     inc/mainwindow.h \
     inc/sleep.h \
     inc/addfrienddialog.h \
+    inc/friendlistwidget.h \
     inc/hostsocket.h
 
 FORMS    += ui/loginwidget.ui \
     ui/mainwindow.ui \
-    ui/addfrienddialog.ui
+    ui/addfrienddialog.ui \
+    ui/friendlistwidget.ui
 
 RESOURCES += \
     font.qrc

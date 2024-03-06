@@ -6,6 +6,7 @@ AddFriendDialog::AddFriendDialog(QWidget *parent) :
     ui(new Ui::AddFriendDialog)
 {
     ui->setupUi(this);
+    setFixedSize(565, 412);
 
     ui->SearchResult->hide();
     ui->AddFromResult->hide();
@@ -27,15 +28,13 @@ AddFriendDialog::AddFriendDialog(QWidget *parent) :
         QString phone = ui->PhoneInput->text();
         QString name = QString();
         //查找成功判定
-        if (checkExist(phone, name))
-        {
+        if (checkExist(phone, name)) {
             ui->SearchResult->setText(name);
             ui->SearchResult->show();
 
             ui->AddFromResult->show();
         }
-        else
-        {
+        else {
             ui->SearchResult->setText("找不到该号码！");
             ui->SearchResult->setStyleSheet("font: 11pt \"微软雅黑\";color: rgb(149, 20, 65);");
             ui->SearchResult->show();
@@ -60,8 +59,7 @@ AddFriendDialog::~AddFriendDialog()
 
 bool AddFriendDialog::checkExist(const QString &phone, QString &name)
 {
-    if (phone != "")
-    {
+    if (phone != "") {
         name = "好友1123";
         return true;
     }
