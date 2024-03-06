@@ -23,8 +23,8 @@
    <widget class="QTextEdit" name="InputBox">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>690</y>
+      <x>51</x>
+      <y>670</y>
       <width>461</width>
       <height>151</height>
      </rect>
@@ -46,8 +46,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>670</y>
+      <x>31</x>
+      <y>650</y>
       <width>501</width>
       <height>191</height>
      </rect>
@@ -63,11 +63,14 @@ border-radius: 7px;</string>
    <widget class="QCheckBox" name="EnableEnterSend">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>621</y>
+      <x>110</x>
+      <y>600</y>
       <width>131</width>
       <height>38</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QCheckBox {
@@ -84,10 +87,10 @@ QCheckBox::hover {
    <widget class="QPushButton" name="SendMessage">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>616</y>
-      <width>112</width>
-      <height>45</height>
+      <x>403</x>
+      <y>596</y>
+      <width>105</width>
+      <height>44</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -101,36 +104,23 @@ QCheckBox::hover {
 }
 QPushButton::hover {
 	background-color: rgb(109, 236, 109);
+}
+
+QPushButton::disabled {
+	background-color: rgb(169, 224, 166);
 }</string>
     </property>
     <property name="text">
      <string>发送</string>
     </property>
    </widget>
-   <widget class="QLabel" name="ChattingBackground">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>501</width>
-      <height>561</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 7px;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QTextBrowser" name="TheOtherChatting">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>40</y>
+      <x>42</x>
+      <y>80</y>
       <width>241</width>
-      <height>541</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -143,10 +133,10 @@ border-radius: 7px;</string>
    <widget class="QTextBrowser" name="MyChatting">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>40</y>
+      <x>282</x>
+      <y>80</y>
       <width>241</width>
-      <height>541</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -167,7 +157,6 @@ p, li { white-space: pre-wrap; }
    <zorder>InputBox</zorder>
    <zorder>EnableEnterSend</zorder>
    <zorder>SendMessage</zorder>
-   <zorder>ChattingBackground</zorder>
    <zorder>MyChatting</zorder>
    <zorder>TheOtherChatting</zorder>
   </widget>
@@ -186,6 +175,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="new_dialog"/>
     <addaction name="close_dialog"/>
+    <addaction name="close_every_dialog"/>
    </widget>
    <widget class="QMenu" name="myfriend">
     <property name="title">
@@ -253,6 +243,11 @@ p, li { white-space: pre-wrap; }
   <action name="exit">
    <property name="text">
     <string>退出应用(同时退出登录)</string>
+   </property>
+  </action>
+  <action name="close_every_dialog">
+   <property name="text">
+    <string>关闭所有会话</string>
    </property>
   </action>
  </widget>
