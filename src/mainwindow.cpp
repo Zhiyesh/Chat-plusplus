@@ -79,10 +79,11 @@ MainWindow::MainWindow(QWidget *parent) :
         Zy::mSleep(100);
         QString content = ui->InputBox->toPlainText();
         if (content != "") {
-            socket->write(QString("send#%1#%2#%3")
+            socket->write(QString("send#%1#%2#%3#")
                           .arg(phone)
                           .arg(FriendTab->tabText(FriendTab->currentIndex()))
                           .arg(content).toStdString().c_str());
+            socket->waitForBytesWritten();
             ui->MyChatting->append(content + "\n\n");
             ui->InputBox->setText("");
         }
