@@ -48,16 +48,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
     //账号读取
     if (account->open(QIODevice::ReadOnly)) {
         QString content = account->readAll();
-//        QString tmp;
-//        for (int i = 0; i < content.size(); i++) {
-//            if (content[i] != 'z') {
-//                tmp += content[i];
-//            }
-//            else if (tmp != "") {
-//                ui->Account->addItem(tmp);
-//                tmp = "";
-//            }
-//        }
         phones = content.split("z");
         ui->Account->addItems(phones);
         if (ui->Account->itemText(0) != "")
@@ -90,8 +80,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
         //增加字
         if (ui->Account->lineEdit()->text().size() > *pre_size) {
             QString end = *(ui->Account->lineEdit()->text().end() - 1);
-            //输入的是数字
-            if (end <= 57 && end >= 48) {
+            //输入的是数字且在长度范围内
+            if ((end <= 57 && end >= 48) && ui->Account->lineEdit()->text().size() <= 10) {
                 *id += end.toStdString();
             }
             ui->Account->lineEdit()->setText(QString::fromStdString(*id));
@@ -114,9 +104,21 @@ LoginWidget::LoginWidget(QWidget *parent) :
     });
 
     //密码输入
+    connect(ui->Password, &QLineEdit::textChanged, [this] {
+        QString pwd_text = ui->Password->text();
+        if (pwd_text.size() > 12)
+        {
+            ui->Password->setText(pwd_text.remove(pwd_text.size() - 1, 1));
+        }
+
+        QStringList style_sheets = ui->Password->styleSheet().split(";");
+        style_sheets[0] = (pwd_text.isEmpty())
+                           ? "font-size: 12pt" : "font-size: 8pt";
+        ui->Password->setStyleSheet(style_sheets.join(";"));
+    });
 
     //回车登录
-    connect(ui->Password, &QLineEdit::returnPressed, [&](){
+    connect(ui->Password, &QLineEdit::returnPressed, [this] {
         ui->ToLogin->clicked();
     });
 

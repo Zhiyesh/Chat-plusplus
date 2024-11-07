@@ -29,7 +29,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 12pt;
+    <string notr="true">font-size: 12pt;
 border: 6px solid rgb(75, 75, 75);
 border-top-color: rgb(249, 249, 249);
 border-left-color: rgb(249, 249, 249);
@@ -69,9 +69,9 @@ QPushButton::hover {
   <widget class="QCheckBox" name="AutoLogin">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>200</x>
      <y>370</y>
-     <width>111</width>
+     <width>151</width>
      <height>51</height>
     </rect>
    </property>
@@ -96,7 +96,7 @@ QCheckBox::hover {
     <rect>
      <x>390</x>
      <y>370</y>
-     <width>111</width>
+     <width>151</width>
      <height>51</height>
     </rect>
    </property>
@@ -119,9 +119,9 @@ QCheckBox::hover {
   <widget class="QPushButton" name="RetrievePassword">
    <property name="geometry">
     <rect>
-     <x>129</x>
+     <x>158</x>
      <y>560</y>
-     <width>91</width>
+     <width>121</width>
      <height>51</height>
     </rect>
    </property>
@@ -146,7 +146,7 @@ QPushButton::hover {
     <rect>
      <x>20</x>
      <y>560</y>
-     <width>91</width>
+     <width>121</width>
      <height>51</height>
     </rect>
    </property>
@@ -182,7 +182,7 @@ QPushButton::hover {
 	border-top-color: rgb(249, 249, 249);
 	border-left-color: rgb(249, 249, 249);
 	border-right-color: rgb(249, 249, 249);
-	border-bottom-width: 3px;
+	border-bottom-color: rgb(249, 249, 249);
 	background-color: rgb(249, 249, 249);
 	border-radius: 7px;
 }
@@ -255,9 +255,9 @@ QComboBox::down-arrow {
   <widget class="QLabel" name="PasswordError">
    <property name="geometry">
     <rect>
-     <x>221</x>
+     <x>170</x>
      <y>410</y>
-     <width>305</width>
+     <width>401</width>
      <height>51</height>
     </rect>
    </property>
@@ -278,9 +278,9 @@ QComboBox::down-arrow {
   <widget class="QLabel" name="NetworkDisconnect">
    <property name="geometry">
     <rect>
-     <x>247</x>
+     <x>200</x>
      <y>410</y>
-     <width>253</width>
+     <width>331</width>
      <height>51</height>
     </rect>
    </property>
@@ -301,7 +301,7 @@ QComboBox::down-arrow {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>114</x>
+     <x>140</x>
      <y>578</y>
      <width>16</width>
      <height>18</height>

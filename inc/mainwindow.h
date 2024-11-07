@@ -45,6 +45,7 @@ public:
 
 private slots:
     void addDialogTab(QString phone);
+    bool removeDialogTab();
     void closeEvent(QCloseEvent *event);
 
 private:

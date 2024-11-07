@@ -14,7 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow {
+   <string notr="true">font-size: 10.5pt;
+QMainWindow {
 	background-color: rgb(236, 236, 236);
 	color: rgb(36, 36, 36);
 }</string>
@@ -65,7 +66,7 @@ border-radius: 7px;</string>
      <rect>
       <x>110</x>
       <y>600</y>
-      <width>131</width>
+      <width>181</width>
       <height>38</height>
      </rect>
     </property>
@@ -83,6 +84,9 @@ QCheckBox::hover {
     <property name="text">
      <string>回车键发送</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="SendMessage">
     <property name="geometry">
@@ -92,6 +96,9 @@ QCheckBox::hover {
       <width>105</width>
       <height>44</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -166,7 +173,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>568</width>
-     <height>34</height>
+     <height>46</height>
     </rect>
    </property>
    <widget class="QMenu" name="dialog">

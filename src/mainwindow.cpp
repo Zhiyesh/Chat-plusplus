@@ -46,11 +46,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //Connect to Server
     socket->connectToHost(ADDRESS, PORT);
 
-    connect(socket, &QTcpSocket::connected, [&](){
+    connect(socket, &QTcpSocket::connected, [this] {
         //已连接
         socket->write(QString("logining#%1").arg(phone).toStdString().c_str());
         socket->waitForBytesWritten();
-        connect(socket, &QTcpSocket::readyRead, [&](){
+        connect(socket, &QTcpSocket::readyRead, [this] {
             //接受到信息
             Zy::mSleep(500);
             QString ret = socket->readAll();
@@ -61,6 +61,15 @@ MainWindow::MainWindow(QWidget *parent) :
                     isnot_first = false;
                 }
                 ui->TheOtherChatting->append(rec[2] + "\n\n");
+
+                for (int i = 0; i < FriendTab->count(); i++)
+                {
+                    if (FriendTab->tabText(i) == rec[1])
+                    {
+                        return;
+                    }
+                }
+                addDialogTab(rec[1]);
             }
             else if (rec[0] == "recmyfri") {
                 friends = QString(rec[1]).split("z");
@@ -122,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //会话
     //新建会话
-    connect(ui->new_dialog, &QAction::triggered, [&](){
+    connect(ui->new_dialog, &QAction::triggered, [this] {
         ui->TheOtherChatting->setText("");
         ui->MyChatting->setText("");
         ui->InputBox->setText("");
@@ -140,16 +149,11 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     //关闭会话
-    connect(ui->close_dialog, &QAction::triggered, [&](){
-        FriendTab->removeTab(FriendTab->currentIndex());
-        if (FriendTab->currentIndex() == -1) {
-            ui->SendMessage->setEnabled(false);
-        }
-    });
+    connect(ui->close_dialog, &QAction::triggered, this, &MainWindow::removeDialogTab);
 
     //关闭所有会话
-    connect(ui->close_every_dialog, &QAction::triggered, [&](){
-        while (FriendTab->currentIndex() != -1) FriendTab->removeTab(0);
+    connect(ui->close_every_dialog, &QAction::triggered, [this] {
+        while (removeDialogTab());
     });
 
 //好友
@@ -207,9 +211,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::addDialogTab(QString phone)
 {
-    QWidget *tmp = new QWidget();
+    QWidget *tmp = new QWidget;
     FriendTab->addTab(tmp, phone);
     ui->SendMessage->setEnabled(true);
+}
+
+bool MainWindow::removeDialogTab()
+{
+    if (FriendTab->count()) {
+        FriendTab->removeTab(FriendTab->currentIndex());
+        ui->TheOtherChatting->clear();
+        ui->MyChatting->clear();
+        if (!FriendTab->count()) {
+            ui->SendMessage->setEnabled(false);
+        }
+        return true;
+    }
+    return false;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
